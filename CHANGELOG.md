@@ -1,3 +1,13 @@
+## [2.8.0](https://github.com/alexraju01/Starlight/compare/v2.7.0...v2.8.0) (2026-04-26)
+
+### ✨ Features
+
+* enhance sitemap generation and improve robots.txt configuration ([d067ae8](https://github.com/alexraju01/Starlight/commit/d067ae89b79524128a78321bc0b51d65d5f87633))
+
+### 🐛 Bug Fixes
+
+* update parameter handling in GET functions and improve type definitions in CustomSlider ([2c274af](https://github.com/alexraju01/Starlight/commit/2c274afb6fc0e1d73f555305cdee29daba46d826))
+
 ## [2.7.0](https://github.com/alexraju01/Starlight/compare/v2.6.0...v2.7.0) (2026-04-14)
 
 ### ✨ Features
