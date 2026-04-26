@@ -7,7 +7,6 @@ const Home = () => {
   return (
     <>
       <Carousel mediaMode={MediaMode.MOVIE} />
-
       <section className="relative overflow-hidden sm:mt-15">
         <BlurBackground />
 

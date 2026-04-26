@@ -5,7 +5,7 @@ import CustomSliderClient from './CustomSliderClient';
 
 interface Props {
   endpoint: string;
-  title: string | React.ReactNode;
+  title: string;
   mediaMode: MediaMode;
   breakpoints?: { max: number; value: number }[];
 }
@@ -15,6 +15,7 @@ const CustomSlider = async ({ endpoint, title, mediaMode, breakpoints }: Props) 
     api.media.getSliderData(mediaMode, endpoint),
     api.genre.getGenres(mediaMode),
   ]);
+
   const genreMap = Object.fromEntries(genres.map(({ id, name }) => [id, name]));
 
   return (
