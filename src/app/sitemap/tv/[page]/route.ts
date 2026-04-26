@@ -1,13 +1,21 @@
+import { NextRequest } from 'next/server';
+
 import { MediaMode } from '@/types/mediaMode';
 import { api } from '@/utils/api';
 
 export const revalidate = 3600;
 
-export async function GET(_: Request, { params }: { params: { page: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ page: string }> }) {
   const baseUrl = 'https://www.starlightdiscover.co.uk';
-  const page = Number(params.page);
 
-  const shows = await api.media.getMedia(MediaMode.TV, page);
+  const { page } = await params;
+  const pageNum = Number(page);
+
+  if (!Number.isFinite(pageNum) || pageNum < 1) {
+    return new Response('Invalid page', { status: 400 });
+  }
+
+  const shows = await api.media.getMedia(MediaMode.TV, pageNum);
 
   const urls = shows.map(
     (tv: any) => `

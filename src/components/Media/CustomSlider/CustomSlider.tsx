@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { MediaMode } from '@/types/mediaMode';
 import { api } from '@/utils/api';
 
@@ -5,7 +7,7 @@ import CustomSliderClient from './CustomSliderClient';
 
 interface Props {
   endpoint: string;
-  title: string;
+  title: ReactNode;
   mediaMode: MediaMode;
   breakpoints?: { max: number; value: number }[];
 }

@@ -1,16 +1,22 @@
+import { NextRequest } from 'next/server';
+
 import { MediaMode } from '@/types/mediaMode';
 import { api } from '@/utils/api';
 
-export const revalidate = 3600; // cache 1 hour
+export const revalidate = 3600;
 
-export async function GET(_: Request, { params }: { params: { page: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ page: string }> }) {
   const baseUrl = 'https://www.starlightdiscover.co.uk';
-  const page = Number(params.page);
 
-  // fetch ONE page only (important for scaling)
-  const movies = await api.media.getMedia(MediaMode.MOVIE, page);
+  const { page } = await params;
+  const pageNum = Number(page);
 
-  // build XML entries
+  if (!Number.isFinite(pageNum) || pageNum < 1) {
+    return new Response('Invalid page', { status: 400 });
+  }
+
+  const movies = await api.media.getMedia(MediaMode.MOVIE, pageNum);
+
   const urls = movies.map(
     (movie: any) => `
     <url>
@@ -20,7 +26,6 @@ export async function GET(_: Request, { params }: { params: { page: string } }) 
   `,
   );
 
-  // return XML response
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?>
      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
